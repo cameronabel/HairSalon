@@ -25,12 +25,14 @@ public class StylistsController : Controller
 
   public ActionResult Create()
   {
+    ViewBag.SpecialtyId = new SelectList(_db.Specialties, "SpecialtyId", "Name");
     return View();
   }
 
   [HttpPost]
   public ActionResult Create(Stylist Stylist)
   {
+    Stylist.Status = "Active";
     _db.Stylists.Add(Stylist);
     _db.SaveChanges();
     return RedirectToAction("Index");
