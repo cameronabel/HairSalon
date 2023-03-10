@@ -77,6 +77,27 @@
 
 
 <script type="text/javascript">
+
+  function fetchClientDetails(){
+    let clientId = document.getElementById('ClientId').value;
+    fetch(`/Clients/GetClient/${clientId}`, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(response => response.json())
+          .then(response => {
+            let client = JSON.parse(response);
+            document.getElementById('client-stats').innerText = `${client.Name} - ${client.Phone} - ${client.Email}`;
+          })
+  }
+
+
+  if (document.getElementById("ClientId") != ""){
+    fetchClientDetails();
+  }
   document.getElementById("showaddnewclient").addEventListener('click', e=> {
     document.getElementById('new-client-form').classList.remove('hidden');
     document.getElementById('showaddnewclient').classList.add('hidden');
@@ -102,19 +123,7 @@
     } else {
       document.getElementById("select-service").classList.remove("hidden");
       document.getElementById("hideaddnewclient").click();
-      let clientId = document.getElementById('ClientId').value;
-      fetch(`/Clients/GetClient/${clientId}`, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(response => response.json())
-      .then(response => {
-        let client = JSON.parse(response);
-        document.getElementById('client-stats').innerText = `${client.Name} - ${client.Phone} - ${client.Email}`;
-      })
+      fetchClientDetails();
     }
   });
 
