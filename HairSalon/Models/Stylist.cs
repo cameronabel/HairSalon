@@ -12,4 +12,5 @@ public class Stylist
   public string Status { get; set; }
   public Specialty Specialty { get; set; }
   public int SpecialtyId { get; set; }
+  public List<Appointment> Appointments { get; set; }
 }
