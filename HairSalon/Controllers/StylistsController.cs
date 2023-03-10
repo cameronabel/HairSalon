@@ -1,8 +1,8 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Text.Json;
 
 using HairSalon.Models;
 
@@ -111,5 +111,14 @@ public class StylistsController : Controller
     _db.Stylists.Remove(thisStylist);
     _db.SaveChanges();
     return RedirectToAction("Index");
+  }
+
+  public ActionResult GetApplicableStylists(int id)
+  {
+    Console.WriteLine("HEREHERE");
+    Console.WriteLine(id);
+    List<Stylist> stylists = _db.Stylists.ToList().Where(stylist => stylist.SpecialtyId == id).ToList();
+    var json = JsonSerializer.Serialize(stylists);
+    return Json(json);
   }
 }

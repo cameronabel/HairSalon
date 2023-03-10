@@ -94,6 +94,33 @@
           })
   }
 
+  function fetchApplicableStylists(){
+    let specialtyId = document.getElementById('SpecialtyId').value;
+    alert('triggered');
+    fetch(`/Stylists/GetApplicableStylists/${specialtyId}`, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(response => response.json())
+          .then(response => {
+            let stylists = JSON.parse(response);
+            let stylistSelector = document.getElementById('StylistId');
+            let size = stylistSelector.options.length;
+            for (let i=1; i < size; i++){
+              if (stylists.map(s => s.StylistId.toString()).includes(stylistSelector[i].value.toString())){
+                
+                stylistSelector[i].removeAttribute("disabled");
+              } else {
+                
+                stylistSelector[i].setAttribute("disabled", "disabled");
+              }
+            }
+          })
+  }
+
 
   if (document.getElementById("ClientId") != ""){
     fetchClientDetails();
@@ -149,6 +176,7 @@
       document.getElementById("select-stylist").classList.remove("hidden");
       document.getElementById("hideaddnewservice").click();
     }
+    fetchApplicableStylists();
   });
     document.getElementById("showaddnewstylist").addEventListener('click', e=> {
       document.getElementById('new-stylist-form').classList.remove('hidden');

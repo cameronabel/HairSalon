@@ -15,12 +15,7 @@
   <div class="one-two">
   @Html.LabelFor(model => model.Name)
   @Html.EditorFor(model => model.Name)
-  <br>
-  @* @Html.LabelFor(model => model.Status)
-  @Html.DropDownListFor(model => model.Status, new List<SelectListItem>() {
-      new SelectListItem() { Text="Active", Value="ACTIVE"},
-      new SelectListItem() { Text="Inactive", Value="INACTIVE"}
-    }) *@
+
   <br>
   @Html.LabelFor(model => model.Specialty)
   @Html.DropDownList("SpecialtyId")

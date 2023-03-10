@@ -48,7 +48,6 @@ public class ClientsController : Controller
 
   public ActionResult GetClient(int id)
   {
-    Console.WriteLine(id);
     Client thisClient = _db.Clients.FirstOrDefault(client => client.ClientId == id);
     return Json($"{{\"Name\": \"{thisClient.Name}\", \"Phone\": \"{thisClient.Phone}\", \"Email\": \"{thisClient.Email}\"}}");
   }
