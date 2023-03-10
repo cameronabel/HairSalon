@@ -24,7 +24,7 @@ public class AppointmentsController : Controller
   {
     ViewBag.ClientId = new SelectList(_db.Clients, "ClientId", "Name", id);
     ViewBag.SpecialtyId = new SelectList(_db.Specialties, "SpecialtyId", "Name");
-    ViewBag.StylistId = new SelectList(_db.Stylists, "StylistId", "Name");
+    ViewBag.StylistId = new SelectList(_db.Stylists.Where(stylist => stylist.Status == "ACTIVE"), "StylistId", "Name");
     return View();
   }
 

@@ -115,8 +115,6 @@ public class StylistsController : Controller
 
   public ActionResult GetApplicableStylists(int id)
   {
-    Console.WriteLine("HEREHERE");
-    Console.WriteLine(id);
     List<Stylist> stylists = _db.Stylists.ToList().Where(stylist => stylist.SpecialtyId == id).ToList();
     var json = JsonSerializer.Serialize(stylists);
     return Json(json);

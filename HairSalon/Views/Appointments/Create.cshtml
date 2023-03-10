@@ -39,9 +39,11 @@
 
   <div id="select-time" class="hidden">
     <hr/>
-
-    @Html.TextBoxFor(model => model.DateTime, new {type="datetime-local", step=3600, required="required"})
-    <br>
+    <label for="dateTime">Date and time:</label>
+    @Html.TextBoxFor(model => model.DateTime, new {type="datetime-local", step=60, required="required"})
+    @Html.LabelFor(model => model.Notes)
+    @Html.TextAreaFor(model => model.Notes, new {placeholder="optional"})
+    <input type="submit" value="Book it!" class="btn btn-primary">
   </div>
 
 }
