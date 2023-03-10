@@ -193,3 +193,11 @@ div#footer {
   opacity: 0.4;
   color: #7C4E29;
 }
+
+.wide-label {
+  width: 8rem;
+}
+
+.wide-input {
+  width: 9.5rem;
+}

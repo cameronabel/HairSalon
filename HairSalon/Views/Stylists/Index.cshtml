@@ -12,9 +12,22 @@
   <h3>No stylists added yet!</h3>
 }
 
+<h3>Active Stylists</h3>
 @foreach (Stylist stylist in Model)
 {
-  <li>@Html.ActionLink($"{stylist.Name}", "Details", new {id = stylist.StylistId})</li>
+  @if(stylist.Status == "ACTIVE")
+  {
+    <li>@Html.ActionLink($"{stylist.Name}", "Details", new {id = stylist.StylistId})</li>
+  }
+}
+<br>
+<h3>Inactive Stylists</h3>
+@foreach (Stylist stylist in Model)
+{
+  @if(stylist.Status == "INACTIVE")
+  {
+    <li>@Html.ActionLink($"{stylist.Name}", "Details", new {id = stylist.StylistId})</li>
+  }
 }
 <br>
 <p>@Html.ActionLink("Add a stylist", "Create")</p>
