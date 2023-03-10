@@ -47,6 +47,57 @@ public class StylistsController : Controller
     return View(thisStylist);
   }
 
+  public ActionResult Edit(int id)
+  {
+    Stylist thisStylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == id);
+    ViewBag.SpecialtyId = new SelectList(_db.Specialties, "SpecialtyId", "Name", thisStylist.SpecialtyId);
+
+    return View(thisStylist);
+  }
+
+  [HttpPost]
+  public ActionResult Edit(int id, string name, DateTime hireDate, DateTime terminationDate, DateTime rehireDate, int specialtyId)
+  {
+    DateTime nullDate = new DateTime(0);
+    Stylist thisStylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == id);
+    thisStylist.Name = name;
+    if (hireDate != nullDate)
+    {
+      thisStylist.HireDate = hireDate;
+    }
+    if (terminationDate != nullDate)
+    {
+      thisStylist.TerminationDate = terminationDate;
+    }
+    if (rehireDate != nullDate)
+    {
+      thisStylist.RehireDate = rehireDate;
+    }
+    if (thisStylist.TerminationDate.HasValue)
+    {
+      if (thisStylist.RehireDate.HasValue)
+      {
+        if (thisStylist.RehireDate > thisStylist.TerminationDate)
+        {
+          thisStylist.Status = "Active";
+        }
+        else
+        {
+          thisStylist.Status = "Inactive";
+        }
+      }
+      else
+      {
+        thisStylist.Status = "Inactive";
+      }
+    }
+
+    thisStylist.SpecialtyId = specialtyId;
+    _db.Stylists.Update(thisStylist);
+    _db.SaveChanges();
+    return RedirectToAction("Details", new { id = id });
+  }
+
   public ActionResult Delete(int id)
   {
     Stylist thisStylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == id);

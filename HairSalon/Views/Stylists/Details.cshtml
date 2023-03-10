@@ -14,42 +14,30 @@
     <h4>@Html.DisplayNameFor(model => model.Specialty): @Html.DisplayFor(model => model.Specialty.Name)</h4>
   </div>
   <div class="three">
-    <h4>@Html.DisplayNameFor(model => model.HireDate):
-    <br>
-        @{
-          @(Model.HireDate.ToString("MM/dd/yyyy") == "01/01/0001" ? "" : @Model.HireDate.ToString("MM/dd/yyyy"))
-          ;
-        }
-    <h4>@Html.DisplayNameFor(model => model.TerminationDate):
-    <br>
-            @{
-              @(Model.TerminationDate.ToString("MM/dd/yyyy") == "01/01/0001" ? "" : @Model.TerminationDate.ToString("MM/dd/yyyy"))
-              ;
-            }
-    <h4>@Html.DisplayNameFor(model => model.RehireDate):
-    <br>
-              @{
-                @(Model.RehireDate.ToString("MM/dd/yyyy") == "01/01/0001" ? "" : @Model.RehireDate.ToString("MM/dd/yyyy"))
-                ;
-              }
+    <h4>@Html.DisplayNameFor(model => model.HireDate):</h4>
+    @Model.HireDate?.ToString("yyyy-MM-dd")
+    <h4>@Html.DisplayNameFor(model => model.TerminationDate):</h4>
+    @Model.TerminationDate?.ToString("yyyy-MM-dd")
+    <h4>@Html.DisplayNameFor(model => model.RehireDate):</h4>
+    @Model.RehireDate?.ToString("yyyy-MM-dd")
   </div>
 </div>
 <br>
 
 @if (@Model.Appointments.Count == 0)
 {
-                  <h5>No appointments have been booked for this stylist yet!</h5>
-                  <p>@Html.ActionLink("Book an appointment", "Create", "Appointments")</p>
+  <h5>No appointments have been booked for this stylist yet!</h5>
+  <p>@Html.ActionLink("Book an appointment", "Create", "Appointments")</p>
 }
 else
-{
-                  <h3>Appointments</h3>
-                  <ul>
-    @foreach (Appointment appointment in Model.Appointments)
-    {
-                                      <li>@Html.ActionLink($"{appointment.DateTime}", "Details", "Appointments", new {id = appointment.AppointmentId})</li>
-    }
-                  </ul>
+  {
+  <h3>Appointments</h3>
+  <ul>
+  @foreach (Appointment appointment in Model.Appointments)
+  {
+    <li>@Html.ActionLink($"{appointment.DateTime}", "Details", "Appointments", new {id = appointment.AppointmentId})</li>
+  }
+  </ul>
 }
 <br>
 <p>@Html.ActionLink("Edit Stylist", "Edit", null, new { id = Model.StylistId})</p>

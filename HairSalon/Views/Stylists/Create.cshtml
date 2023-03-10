@@ -12,10 +12,12 @@
   <br>
 
   @Html.LabelFor(model => model.HireDate)
-  @Html.TextBoxFor(model => model.HireDate, new {type="date"})
+  @Html.TextBox("hireDate", null, new {type="date"})
   <br>
   @Html.DropDownList("SpecialtyId")
   <br>
+  @Html.HiddenFor(model => model.TerminationDate, null)
+  @Html.HiddenFor(model => model.RehireDate, null)
   <input type="submit" value="Add this stylist" class="btn btn-primary" />
   
 }
