@@ -36,6 +36,12 @@ A sample database `cameron_abel.sql` file is provided with this repository. If u
 
 - Still within the `HairSalon` directory, execute `dotnet run`
 
+### Stretch Goals
+
+- Styling is in okay state
+- Appointment creation pulls Client data from DB on the fly, and restricts selection of Stylists that do not match the desired service or who are no longer employed
+- Terminate and rehire your stylists
+
 ## Known Bugs
 
 - ViewBag issues crop up, but may be resolved when not editing the project
