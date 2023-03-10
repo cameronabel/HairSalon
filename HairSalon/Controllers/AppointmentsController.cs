@@ -20,6 +20,15 @@ public class AppointmentsController : Controller
     return View(model);
   }
 
+  public ActionResult Details(int id)
+  {
+    Appointment thisAppointment = _db.Appointments.FirstOrDefault(appointment => appointment.AppointmentId == id);
+    ViewBag.Client = _db.Clients.FirstOrDefault(client => client.ClientId == thisAppointment.ClientId);
+    ViewBag.Stylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == thisAppointment.StylistId);
+    ViewBag.Specialty = _db.Stylists.FirstOrDefault(specialty => specialty.SpecialtyId == thisAppointment.SpecialtyId);
+    return View(thisAppointment);
+  }
+
   public ActionResult Create(int id)
   {
     ViewBag.ClientId = new SelectList(_db.Clients, "ClientId", "Name", id);
