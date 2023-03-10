@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 using HairSalon.Models;
 
@@ -50,6 +51,14 @@ public class ClientsController : Controller
     Console.WriteLine(id);
     Client thisClient = _db.Clients.FirstOrDefault(client => client.ClientId == id);
     return Json($"{{\"Name\": \"{thisClient.Name}\", \"Phone\": \"{thisClient.Phone}\", \"Email\": \"{thisClient.Email}\"}}");
+  }
+
+  public ActionResult Details(int id)
+  {
+    Client thisClient = _db.Clients
+                            .Include(client => client.Appointments)
+                            .FirstOrDefault(client => client.ClientId == id);
+    return View(thisClient);
   }
 
 }

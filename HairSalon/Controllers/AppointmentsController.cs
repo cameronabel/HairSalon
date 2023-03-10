@@ -1,8 +1,5 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 using HairSalon.Models;
 
@@ -23,9 +20,9 @@ public class AppointmentsController : Controller
     return View(model);
   }
 
-  public ActionResult Create()
+  public ActionResult Create(int id)
   {
-    ViewBag.ClientId = new SelectList(_db.Clients, "ClientId", "Name");
+    ViewBag.ClientId = new SelectList(_db.Clients, "ClientId", "Name", id);
     ViewBag.SpecialtyId = new SelectList(_db.Specialties, "SpecialtyId", "Name");
     ViewBag.StylistId = new SelectList(_db.Stylists, "StylistId", "Name");
     return View();
