@@ -37,6 +37,13 @@
 
   </div>
 
+  <div id="select-time" class="hidden">
+    <hr/>
+
+    @Html.TextBoxFor(model => model.DateTime, new {type="datetime-local", step=3600, required="required"})
+    <br>
+  </div>
+
 }
 
 <div id="new-client-form" class="hidden">

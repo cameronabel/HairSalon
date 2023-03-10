@@ -40,9 +40,7 @@ function fetchApplicableStylists(){
         });
 }
 
-if (document.getElementById("ClientId") != ""){
-  fetchClientDetails();
-}
+
 document.getElementById("showaddnewclient").addEventListener('click', e=> {
   document.getElementById('new-client-form').classList.remove('hidden');
   document.getElementById('showaddnewclient').classList.add('hidden');
@@ -110,3 +108,20 @@ document.getElementById('hideaddnewstylist').addEventListener('click', e=> {
   document.getElementById('showaddnewstylist').classList.remove('hidden');
   document.getElementById('hideaddnewstylist').classList.add('hidden');
 });
+
+document.getElementById("StylistId").addEventListener("change", e=> {
+  if (e.target.value === null || e.target.value == ""){
+    document.getElementById("select-time").classList.add("hidden");
+  } else {
+    document.getElementById("select-time").classList.remove("hidden");
+    document.getElementById("hideaddnewstylist").click();
+  }
+  fetchApplicableStylists();
+});
+
+if (document.getElementById("ClientId") != ""){
+  let event = new Event('change');
+  document.getElementById("ClientId").dispatchEvent(event);
+
+  fetchClientDetails();
+}
