@@ -124,6 +124,11 @@ div#footer {
   grid-row: 2;
 }
 
+.one-two {
+  grid-column: 1 / 2;
+  grid-row: 1;
+}
+
 .splash-image {
   width: 100%;
   border: 4px solid #7C4E29;
