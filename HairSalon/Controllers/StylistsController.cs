@@ -8,33 +8,30 @@ using HairSalon.Models;
 
 namespace HairSalon.Controllers;
 
-public class AppointmentsController : Controller
+public class StylistsController : Controller
 {
   private readonly HairSalonContext _db;
 
-  public AppointmentsController(HairSalonContext db)
+  public StylistsController(HairSalonContext db)
   {
     _db = db;
   }
 
   public ActionResult Index()
   {
-    List<Appointment> model = _db.Appointments.ToList();
+    List<Stylist> model = _db.Stylists.ToList();
     return View(model);
   }
 
   public ActionResult Create()
   {
-    ViewBag.ClientId = new SelectList(_db.Clients, "ClientId", "Name");
-    ViewBag.SpecialtyId = new SelectList(_db.Specialties, "SpecialtyId", "Name");
-    ViewBag.StylistId = new SelectList(_db.Stylists, "StylistId", "Name");
     return View();
   }
 
   [HttpPost]
-  public ActionResult Create(Appointment appointment)
+  public ActionResult Create(Stylist Stylist)
   {
-    _db.Appointments.Add(appointment);
+    _db.Stylists.Add(Stylist);
     _db.SaveChanges();
     return RedirectToAction("Index");
   }

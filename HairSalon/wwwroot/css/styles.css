@@ -14,16 +14,20 @@ body {
   background-color: #eeeeee;
 }
 
+.hidden {
+  display: none;
+}
+
 nav {
   display: flex;
   align-items: center;
   background-color: #7C4E29;
   margin-bottom: 1.5em;
-  min-width: 840px;
+  min-width: 600px;
 }
 
 #nav-pad {
-  width: calc(50% - 400px);
+  width: calc(50% - 320px);
   min-width: 2.5%;
 }
 
@@ -55,7 +59,7 @@ nav {
 #page {
   width: 95%;
   margin: auto;
-  max-width: 800px;
+  max-width: 640px;
 }
 
 div#footer {
@@ -77,17 +81,110 @@ div#footer {
   width: 200px;
 }
 
-form {
-  position: relative;
+
+.btn-primary {
+  background-color: #7C4E29;
+  border-color: #7C4E29;
+  margin-top: .25rem;
 }
-label {
-  left: 0.5rem;
-  position: absolute;
-  top: 0.5rem;
+
+.btn-primary:hover {
+  background-color: #E4AF7D;
+  border-color: #7C4E29;
 }
-input {
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(00px, auto);
+}
+.one {
+  grid-column: 1;
+  grid-row: 1;
+}
+.two {
+  grid-column: 2;
+  grid-row: 1;
+}
+.three {
+  grid-column: 3;
+  grid-row: 1;
+}
+.four {
+  grid-column: 1;
+  grid-row: 2;
+}
+.five {
+  grid-column: 2;
+  grid-row: 2;
+}
+.six {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.splash-image {
+  width: 100%;
+  border: 4px solid #7C4E29;
+  border-radius: 10px;
+}
+
+.splash-text {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.splash-text a {
+  text-decoration: none;
+  color:#7C4E29;
+}
+
+.dropdown-label {
+  width: 4rem;
+  text-align: left;
+  margin-right: 5px;
+}
+.dropdown {
+  width: 12rem;
+  text-align: left;
+}
+
+.plus {
+  width: 1.25rem;
+}
+
+.plus:hover {
+  cursor:pointer;
+}
+
+ input:valid + span::after {
+  content: "✓";
+  padding-left: 5px;
+  color: #009000;
+ }
+
+ input:invalid + span::after {
+  content: "✖";
+  padding-left: 5px;
+  color: #8b0000;
+}
+
+#Email {
+  width: 30rem;
+}
+
+
+.text-input {
   border-radius: 6px;
+  border-color: #7C4E29;
   font-size: 1.5rem;
   padding-left: calc(0.5rem - 3px);
-  padding-top: 1.3rem;
+  margin-top: .5rem;
+}
+
+::placeholder {
+  opacity: 0.4;
+  color: #7C4E29;
 }

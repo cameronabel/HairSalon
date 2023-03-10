@@ -35,4 +35,13 @@ public class SpecialtiesController : Controller
     _db.SaveChanges();
     return RedirectToAction("Index");
   }
+
+  public ActionResult CreateFromAppt(string name)
+  {
+    Specialty newSpecialty = new Specialty();
+    newSpecialty.Name = name;
+    _db.Specialties.Add(newSpecialty);
+    _db.SaveChanges();
+    return RedirectToAction("Create", "Appointments");
+  }
 }

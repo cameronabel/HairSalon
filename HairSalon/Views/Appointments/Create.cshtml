@@ -1,0 +1,157 @@
+@{
+  Layout = "_Layout";
+}
+
+@model HairSalon.Models.Appointment
+
+<h3>Schedule New Appointment</h3>
+<hr/>
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Client, new {@class="dropdown-label"})
+  @Html.DropDownList("ClientId", null, "Select a Client", new {@class="dropdown", required="required"})
+    <span id="client-stats"></span>
+    <br>
+    <img id="showaddnewclient" class="plus" src="~/assets/images/plus.png" alt="Show add new client">
+    <img id="hideaddnewclient" class="plus hidden" src="~/assets/images/minus.png" alt="Hide add new client">
+
+  <div id="new-client-form" class="hidden">
+    <br>
+    <h4>Add new client</h4>
+    @using (Html.BeginForm("CreateFromAppt", "Clients", FormMethod.Post, new { @class = "text-form" }))
+    {
+      @Html.TextBox("Name", null, new {required="required", @class="text-input", placeholder="Client Name"})
+      <span class="validity"></span>
+      <br>
+      @Html.TextBox("Phone", null, new {type="tel", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", required="required", @class="text-input", placeholder="Phone (xxx-xxx-xxxx)"})
+      <span class="validity"></span>
+      <br>
+      @Html.TextBox("Email", null, new {type="email", required="required", @class="text-input", placeholder="email@example.com"})
+      <span class="validity"></span>
+      <br>
+      <input type="submit" value="Save new client" class="btn btn-primary" />
+    }
+  </div> <!-- end new-client-form-->
+
+  <div id="select-service" class="hidden">
+    <hr/>
+    @Html.LabelFor(model => model.Specialty, new {@class="dropdown-label"})
+    @Html.DropDownList("SpecialtyId", null, "Select a Service", new {@class="dropdown", required="required"})
+    <br>
+    <img id="showaddnewservice" class="plus" src="~/assets/images/plus.png" alt="Show add new service">
+    <img id="hideaddnewservice" class="plus hidden" src="~/assets/images/minus.png" alt="Hide add new client">
+    <div id="new-service-form" class="hidden">
+      @using (Html.BeginForm("CreateFromAppt", "Specialty", FormMethod.Post))
+      {
+        @Html.TextBox("Name", null, new {required="required", @class="text-input", placeholder="Service Name"})
+        <span class="validity"></span>
+        <br>
+        <input type="submit" value="Save new service" class="btn btn-primary" />
+      }
+    </div> <!-- end new-service-form-->
+  </div><!-- end select-service-->
+
+  <div id="select-stylist" class="hidden">
+    <hr/>
+    @Html.LabelFor(model => model.Stylist, new {@class="dropdown-label"})
+    @Html.DropDownList("StylistId", null, "Select a Stylist", new {@class="dropdown", required="required"})
+    <br>
+    <img id="showaddnewstylist" class="plus" src="~/assets/images/plus.png" alt="Show add new stylist">
+    <img id="hideaddnewstylist" class="plus hidden" src="~/assets/images/minus.png" alt="Hide add new stylist">
+    <div id="new-stylist-form" class="hidden">
+      @using (Html.BeginForm("CreateFromAppt", "Stylist", FormMethod.Post))
+      {
+        @Html.TextBox("Name", null, new {required="required", @class="text-input", placeholder="Stylist Name"})
+        <span class="validity"></span>
+        <br>
+        @Html.DropDownList("SpecialtyId", null, "Select a Specialty", new {@class="dropdown", required="required"})
+        <br>
+        <input type="submit" value="Save new stylist" class="btn btn-primary" />
+      }
+    </div> <!-- end new-service-form-->
+  </div><!-- end select-service-->
+
+}
+<br>
+<p>@Html.ActionLink("Show all Appointments", "Index")</p>
+
+
+<script type="text/javascript">
+  document.getElementById("showaddnewclient").addEventListener('click', e=> {
+    document.getElementById('new-client-form').classList.remove('hidden');
+    document.getElementById('showaddnewclient').classList.add('hidden');
+    document.getElementById('hideaddnewclient').classList.remove('hidden');
+    document.getElementById('select-service').classList.add('hidden');
+    document.getElementById('select-stylist').classList.add('hidden');
+
+    document.getElementById("ClientId").value="";
+    document.getElementById("SpecialtyId").value="";
+    document.getElementById("StylistId").value="";
+  });
+  document.getElementById("hideaddnewclient").addEventListener('click', e=> {
+    document.getElementById('new-client-form').classList.add('hidden');
+    document.getElementById('showaddnewclient').classList.remove('hidden');
+    document.getElementById('hideaddnewclient').classList.add('hidden');
+  });
+
+  document.getElementById("ClientId").addEventListener("change", e=> {
+    if (e.target.value === null || e.target.value == ""){
+      document.getElementById("select-service").classList.add("hidden");
+      document.getElementById("select-stylist").classList.add("hidden");
+      document.getElementById('client-stats').innerText = null;
+    } else {
+      document.getElementById("select-service").classList.remove("hidden");
+      document.getElementById("hideaddnewclient").click();
+      let clientId = document.getElementById('ClientId').value;
+      fetch(`/Clients/GetClient/${clientId}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        let client = JSON.parse(response);
+        document.getElementById('client-stats').innerText = `${client.Name} - ${client.Phone} - ${client.Email}`;
+      })
+    }
+  });
+
+  document.getElementById("showaddnewservice").addEventListener('click', e=> {
+    document.getElementById('new-service-form').classList.remove('hidden');
+    document.getElementById('showaddnewservice').classList.add('hidden');
+    document.getElementById('hideaddnewservice').classList.remove('hidden');
+    document.getElementById("select-stylist").classList.add("hidden");
+
+    document.getElementById("SpecialtyId").value="";
+    document.getElementById("StylistId").value="";
+  });
+  document.getElementById('hideaddnewservice').addEventListener('click', e=> {
+    document.getElementById('new-service-form').classList.add('hidden');
+    document.getElementById('showaddnewservice').classList.remove('hidden');
+    document.getElementById('hideaddnewservice').classList.add('hidden');
+  });
+
+  document.getElementById("SpecialtyId").addEventListener("change", e=> {
+    if (e.target.value === null || e.target.value == ""){
+      document.getElementById("select-stylist").classList.add("hidden");
+    } else {
+      document.getElementById("select-stylist").classList.remove("hidden");
+      document.getElementById("hideaddnewservice").click();
+    }
+  });
+    document.getElementById("showaddnewstylist").addEventListener('click', e=> {
+      document.getElementById('new-stylist-form').classList.remove('hidden');
+      document.getElementById('showaddnewstylist').classList.add('hidden');
+      document.getElementById('hideaddnewstylist').classList.remove('hidden');
+
+      document.getElementById("StylistId").value="";
+    });
+    document.getElementById('hideaddnewstylist').addEventListener('click', e=> {
+      document.getElementById('new-stylist-form').classList.add('hidden');
+      document.getElementById('showaddnewstylist').classList.remove('hidden');
+      document.getElementById('hideaddnewstylist').classList.add('hidden');
+    });
+
+</script>
