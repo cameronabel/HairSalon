@@ -44,4 +44,19 @@ public class AppointmentsController : Controller
     _db.SaveChanges();
     return RedirectToAction("Index");
   }
+
+  public ActionResult Delete(int id)
+  {
+    Appointment thisAppointment = _db.Appointments.FirstOrDefault(appointment => appointment.AppointmentId == id);
+    return View(thisAppointment);
+  }
+
+  [HttpPost, ActionName("Delete")]
+  public ActionResult DeleteConfirmed(int id)
+  {
+    Appointment thisAppointment = _db.Appointments.FirstOrDefault(appointment => appointment.AppointmentId == id);
+    _db.Appointments.Remove(thisAppointment);
+    _db.SaveChanges();
+    return RedirectToAction("Index");
+  }
 }

@@ -43,7 +43,7 @@ public class ClientsController : Controller
     newClient.Email = email;
     _db.Clients.Add(newClient);
     _db.SaveChanges();
-    return RedirectToAction("Create", "Appointments");
+    return RedirectToAction("Create", "Appointments", new { id = newClient.ClientId });
   }
 
   public ActionResult GetClient(int id)
