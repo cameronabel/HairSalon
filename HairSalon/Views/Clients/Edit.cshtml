@@ -1,0 +1,28 @@
+@{
+    Layout = "_Layout";
+}
+
+@model HairSalon.Models.Client
+
+<h4>Edit Client</h4>
+<hr/>
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.ClientId)
+  @Html.LabelFor(model => model.Name, null, new {@class="wide-label"})
+  @Html.EditorFor(model => model.Name, new {required="required", @class="text-input", placeholder="Client Name"})
+  <span class="validity"></span>
+  <br>
+  @Html.LabelFor(model => model.Phone, null, new {@class="wide-label"})
+  @Html.EditorFor(model => model.Phone, new {type="tel", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", required="required", @class="text-input", placeholder="Phone (xxx-xxx-xxxx)"})
+  <span class="validity"></span>
+  <br>
+  @Html.LabelFor(model => model.Email, null, new {@class="wide-label"})
+  @Html.EditorFor(model => model.Email, new {type="email", required="required", @class="text-input", placeholder="email@example.com"})
+  <span class="validity"></span>
+  <br>
+  <input type="submit" value="Update this client" class="btn btn-primary" />
+}
+
+<br>
+<p>@Html.ActionLink("Show all clients", "Index")</p>
