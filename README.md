@@ -29,7 +29,7 @@ A sample database `cameron_abel.sql` file is provided with this repository. If u
 ```JSON
 {
   "ConnectionStrings": {
-      "DefaultConnection": "Server=localhost;Port=3306;database=cameron_abel;uid=root;pwd=epicodus;"
+      "DefaultConnection": "Server=localhost;Port=3306;database=cameron_abel;uid=[NAME];pwd=[PASSWORD];"
   }
 }
 ```
